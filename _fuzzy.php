@@ -260,9 +260,6 @@ function inferensi($umur, $berat, $tinggi, $stadium)
     echo '<img src="https://latex.codecogs.com/svg.latex?z*&space;=&space;\frac{(' . $M1 . ')&plus;(' . $M2 . ')&plus;(' . $M3 . ')}{(' . $A1 . ')&plus;(' . $A2 . ')&plus;(' . $A3 . ')}"/>';
     $nilaiy = ((10 * $nilai_sedikit) + (40 * $nilai_banyak) + 0.5) / ((5 * $nilai_sedikit) + (5 * $nilai_banyak) + 0.5);
     echo "<br><h4><b>Nilai Status Gizi Anda adalah (z*)= </b>" . $final . " </h4>";
-
-
-    // echo '<img src="https://latex.codecogs.com/svg.latex?y*&space;=&space;\frac{((0&plus;1&plus;2&plus;3&plus;4)*0.6)&plus;((5)*0,5)&plus;((6&plus;7&plus;8&plus;9&plus;10)*0.2)}{((5)*0.6)&plus;((1)*0,5)&plus;((5)*0.2)}"/>';
 }
 function suhuminimum($suhu)
 {
