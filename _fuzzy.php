@@ -2,43 +2,43 @@
 function grafikfungsikeanggotaanumur()
 {
 ?>
-<h5>Fungsi Keanggotaan Umur</h5>
-<img src="_assets/img/grafik/umur.png" class="img-fluid" alt="Grafik Suhu">
-<br>
+    <h5>Fungsi Keanggotaan Umur</h5>
+    <img src="_assets/img/grafik/umur.png" class="img-fluid" alt="Grafik Suhu">
+    <br>
 <?php
 }
 function grafikfungsikeanggotaanberatbadan()
 {
 ?>
-<h5>Fungsi Keanggotaan Berat Badan</h5>
-<img src="_assets/img/grafik/beratbadan.png" class="img-fluid" alt="Grafik Kelembapan">
-<br>
+    <h5>Fungsi Keanggotaan Berat Badan</h5>
+    <img src="_assets/img/grafik/beratbadan.png" class="img-fluid" alt="Grafik Kelembapan">
+    <br>
 <?php
 }
 function grafikfungsikeanggotaantinggibadan()
 {
 ?>
-<h5>Fungsi Keanggotaan Tinggi Badan</h5>
-<img src="_assets/img/grafik/tinggibadan.png" class="img-fluid" alt="Grafik Tinggi Air">
-<br>
+    <h5>Fungsi Keanggotaan Tinggi Badan</h5>
+    <img src="_assets/img/grafik/tinggibadan.png" class="img-fluid" alt="Grafik Tinggi Air">
+    <br>
 <?php
 }
 function grafikfungsikeanggotaanstadium()
 {
 ?>
-<h5>Fungsi Keanggotaan Stadium Kanker</h5>
-<img src="_assets/img/grafik/stadium.png" class="img-fluid" alt="Grafik Tinggi Air">
-<br>
+    <h5>Fungsi Keanggotaan Stadium Kanker</h5>
+    <img src="_assets/img/grafik/stadium.png" class="img-fluid" alt="Grafik Tinggi Air">
+    <br>
 <?php
 }
 
 function grafikoutput()
 {
 ?>
-<h4>Output</h4>
-<p>Outputnya adalah Status Gizi</p>
-<img src="_assets/img/grafik/statusgizi.png" class="img-fluid" alt="Grafik Debit Irigasi">
-<br>
+    <h4>Output</h4>
+    <p>Outputnya adalah Status Gizi</p>
+    <img src="_assets/img/grafik/statusgizi.png" class="img-fluid" alt="Grafik Debit Irigasi">
+    <br>
 <?php
 }
 function gambarrules()
@@ -239,18 +239,28 @@ function inferensi($umur, $berat, $tinggi, $stadium)
     // echo '<p>Sampel yang diambil adalah titik 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10. Kemudian dimasukkan ke dalam rumus:</p>';
     // print_r($kondisi);
     // exit;
-    echo $a1 = nilaiX($nilai_banyak, 10, 50);
-    echo "<br>";
-    echo $a2 = nilaiX($nilai_sedikit, 10, 50);
-    echo "<br>";
-    echo $a = simpleIntegral($nilai_banyak, 1, 0, $a1);
-    echo "<br>";
+    $a1 = nilaiX($nilai_banyak, 10, 40);
+    $a2 = nilaiX($nilai_sedikit, 10, 40);
 
-    echo $c = simpleIntegral($nilai_sedikit, 1, $a2, 50);
-    exit;
-    echo '<img src="https://latex.codecogs.com/svg.latex?y*&space;=&space;\frac{((0&plus;1&plus;2&plus;3&plus;4)*' . $nilai_sedikit . ')&plus;((5)*0,5)&plus;((6&plus;7&plus;8&plus;9&plus;10)*' . $nilai_banyak . ')}{((5)*' . $nilai_sedikit . ')&plus;((1)*0,5)&plus;((5)*' . $nilai_banyak . ')}"/>';
+    $M1 = simpleIntegral($nilai_banyak, 1, 0, $a1);
+    $M2 = midIntegral(10, 40, 1, $a1, $a2);
+    $M3 = simpleIntegral($nilai_sedikit, 1, $a2, 40);
+
+    $A1 = simpleIntegral($nilai_banyak, 0, 0, $a1);
+    $A2 = midIntegral(10, 40, 0, $a1, $a2);
+    $A3 = simpleIntegral($nilai_sedikit, 0, $a2, 40);
+
+
+
+    // echo "(" . $M1 . ")+(" . $M2 . ")+(" . $M3 . ") <br>";
+    // echo "----------------------------- <br>";
+    // echo "(" . $A1 . ")+(" . $A2 . ")+(" . $A3 . ") <br>";
+
+    $final = ($M1 + $M2 + $M3) / ($A1 + $A2 + $A3);
+    echo '<img src="https://latex.codecogs.com/svg.latex?z*&space;=&space;\frac{(' . $M1 . ')&plus;(' . $M2 . ')&plus;(' . $M3 . ')}{(' . $A1 . ')&plus;(' . $A2 . ')&plus;(' . $A3 . ')}"/>';
     $nilaiy = ((10 * $nilai_sedikit) + (40 * $nilai_banyak) + 0.5) / ((5 * $nilai_sedikit) + (5 * $nilai_banyak) + 0.5);
-    echo "<br><h4><b>Banyaknya Debit Irigasi (y*)= </b>" . $nilaiy . " L/s/Ha</h4>";
+    echo "<br><h4><b>Nilai Status Gizi Anda adalah (z*)= </b>" . $final . " </h4>";
+
 
     // echo '<img src="https://latex.codecogs.com/svg.latex?y*&space;=&space;\frac{((0&plus;1&plus;2&plus;3&plus;4)*0.6)&plus;((5)*0,5)&plus;((6&plus;7&plus;8&plus;9&plus;10)*0.2)}{((5)*0.6)&plus;((1)*0,5)&plus;((5)*0.2)}"/>';
 }
@@ -478,7 +488,20 @@ function simpleIntegral($value, $pow, $min, $max)
     return $result;
 }
 
-function midIntegral($value, $pow, $min, $max)
+function midIntegral($value, $pembagi, $pow, $min, $max)
 {
+    $result = 0;
+    if ($pow == 1) {
+        $pow1 = 2;
+        $pow2 = 1;
+    } else {
+        $pow1 = 1;
+        $pow2 = 0;
+    }
+
+    $h1 = (1 / $pembagi) / ($pow1 + 1);
+    $h2 = ($value / $pembagi) / ($pow2 + 1);
+    $result = ($h1 * pow($max, $pow1 + 1) - $h2 * pow($max, $pow2 + 1)) - ($h1 * pow($min, $pow1 + 1) - $h2 * pow($min, $pow2 + 1));
+    return $result;
 }
 ?>
